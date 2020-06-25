@@ -26,16 +26,8 @@ docker-compose up -d
 
 Cloudflare uses a certificate to authenticate your host, so you must generate one so that Hera can manage tunnels on your behalf.
 
-1. Download a new certificate https://www.cloudflare.com/a/warp from
-2. Rename the certificate to match your domain, ending in `.pem`. For example, a certificate for `mysite.com` should be named `mysite.com.pem`
-3. Move the certificate to `docker.hera/data/hera/mysite.com.pem`
-
-Alternatively, this can be done via the CLI as well:
-
-```bash
-docker-compose exec hera cloudflared tunnel login
-docker-compose exec hera mv /root/.cloudflared/cert.pem /certs/example.com.pem
-```
+1. Download a new certificate from https://www.cloudflare.com/a/warp
+2. Rename the certificate to match your domain + `.pem`, and move it into the data folder `docker.hera/data/hera/yourdomain.com.pem`
 
 ## Example Usage
 
