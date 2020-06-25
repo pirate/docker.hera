@@ -1,0 +1,35 @@
+# Usage:
+#     docker network create hera
+#     docker-compose up -d
+#     docker-compose exec hera cloudflared tunnel login
+#     docker-compose exec hera mv /root/.cloudflared/cert.pem /certs/example.com.pem
+#     (or download a cert from https://www.cloudflare.com/a/warp and put it in data/hera/example.com.pem)
+
+version: '3.7'
+
+services:
+    hera:
+        image: aschzero/hera:latest
+        container_name: hera
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - ./data/hera:/certs
+        networks:
+            - hera
+
+    # example_usage:
+    #     image: python:3.8-alpine
+    #     working_dir: /var/www
+    #     entrypoint: bash -c 'echo "Hera is up" > index.html; python3 -m http.server 8000'
+    #     expose:
+    #         - 8000
+    #     networks:
+    #         - hera
+    #     labels:
+    #         hera.hostname: hera.example.com
+    #         hera.port: 8000
+
+networks:
+    hera:
+        external:
+            name: hera
